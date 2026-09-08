@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Assessment de Conocimientos en IA para directivos — Colectivo23">
+<title>Assessment de Conocimientos IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
+<style>
+/* ===================================================================
+   Paleta PBS × Colectivo23 — rampa azul monocromática
+   =================================================================== */
+:root{
+  --void:#000109; --abyss:#00041A; --deep:#000A3C; --navy:#001259;
+  --royal:#001881; --azure:#0049BE; --bright:#0A6FE8; --sky:#4E9BFF;
+  --pale:#A9C9FF; --amber:#FFAE3B; --amber-dp:#C97D00;
+
+  --fg:#FFFFFF; --fg-2:rgba(255,255,255,.76); --fg-3:rgba(255,255,255,.52);
+  --rule:rgba(140,180,255,.20); --rule-2:rgba(140,180,255,.11);
+  --panel:rgba(10,60,160,.14); --panel-2:rgba(10,60,160,.24);
+
+  --ink:#00061F; --ink-2:#33406B; --ink-3:#6B77A0;
+  --paper:#EEF2FB; --card:#FFFFFF; --line:#D7DFF2;
+
+  --display:'Plus Jakarta Sans','Segoe UI',system-ui,sans-serif;
+  --body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --r-s:9px; --r-m:14px; --r-l:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--void);color:var(--fg);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,select{font-family:inherit;font-size:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--display);font-weight:800;line-height:1.14;letter-spacing:-.025em;text-wrap:balance}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px;border-radius:5px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.view{display:none}
+.view.active{display:block}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase}
+
+/* --- Fondo facetado de marca --- */
+.stage{position:relative;min-height:100vh;display:flex;flex-direction:column;isolation:isolate;
+  background:
+    radial-gradient(1100px 700px at 78% 8%, rgba(0,73,190,.55), transparent 62%),
+    radial-gradient(900px 900px at 8% 92%, rgba(0,24,129,.42), transparent 60%),
+    linear-gradient(155deg, var(--void) 0%, var(--abyss) 34%, var(--deep) 70%, var(--navy) 100%)}
+.stage::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background:
+    linear-gradient(126deg, transparent 46%, rgba(78,155,255,.09) 46.4%, rgba(78,155,255,.09) 58%, transparent 58.4%),
+    linear-gradient(214deg, transparent 62%, rgba(0,73,190,.16) 62.4%, rgba(0,73,190,.16) 76%, transparent 76.4%)}
+
+.btn-ghost{background:transparent;border:1px solid var(--rule);border-radius:99px;padding:7px 16px;font-size:.8rem;font-weight:500;color:var(--fg-2);cursor:pointer;transition:border-color .18s,color .18s}
+.btn-ghost:hover{border-color:var(--sky);color:var(--sky)}
+
+/* --- Botones --- */
+.btn{background:linear-gradient(102deg,var(--azure),var(--bright));border:none;border-radius:99px;padding:15px 34px;font-family:var(--body);font-size:.98rem;font-weight:600;color:#fff;cursor:pointer;transition:transform .16s,box-shadow .18s;box-shadow:0 10px 30px rgba(0,73,190,.42)}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 15px 40px rgba(10,111,232,.5)}
+.btn:disabled{opacity:.28;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.back{background:transparent;border:1.5px solid var(--rule);box-shadow:none;padding:13px 24px;font-size:.9rem;color:var(--fg-2)}
+.btn.back:hover{border-color:rgba(160,200,255,.5);color:#fff;transform:none;box-shadow:none}
+
+/* --- Portada --- */
+.cover{max-width:1140px;margin:0 auto;width:100%;padding:88px 26px 40px}
+.cover h1{font-size:clamp(2.1rem,5.2vw,3.5rem);max-width:19ch;margin-bottom:20px}
+.cover h1 em{font-style:normal;color:var(--amber)}
+.cover-lede{font-size:1.04rem;color:var(--fg-2);max-width:56ch;margin-bottom:26px}
+.facts{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:32px}
+.fact{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;color:var(--fg-2);border:1px solid var(--rule);border-radius:99px;padding:6px 14px;background:var(--panel)}
+.callout{display:flex;gap:12px;border-left:2px solid var(--amber);padding:3px 0 3px 14px;margin-top:34px;max-width:60ch}
+.callout p{font-size:.86rem;color:var(--fg-2)}
+.callout b{color:#fff;font-weight:600}
+
+/* --- Escalera --- */
+.ladder-wrap{max-width:1140px;margin:0 auto;width:100%;padding:34px 26px 72px}
+.ladder-wrap h2{font-size:1.32rem;margin-bottom:6px}
+.ladder-wrap .eyebrow{color:var(--sky);display:block;margin-bottom:11px}
+.ladder-sub{font-size:.9rem;color:var(--fg-2);max-width:58ch;margin-bottom:26px}
+.scroller{overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch}
+.ladder{display:flex;align-items:flex-end;gap:7px;min-width:740px;padding-top:44px}
+.rung{flex:1;display:flex;flex-direction:column;position:relative;background:none;border:none;padding:0;text-align:center;font-family:inherit;cursor:default}
+.rung.pick{cursor:pointer}
+.rung-name{font-family:var(--display);font-size:.73rem;font-weight:700;line-height:1.24;margin-bottom:7px;min-height:2.6em;display:flex;align-items:flex-end;justify-content:center;color:var(--sky);padding:0 2px}
+.rung-bar{border-radius:var(--r-s) var(--r-s) 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:9px;transition:filter .18s,box-shadow .18s}
+.rung.pick:hover .rung-bar{filter:brightness(1.3);box-shadow:0 0 0 2px var(--sky) inset}
+.rung-num{font-family:var(--mono);font-size:1.4rem;font-weight:600;color:rgba(255,255,255,.95)}
+.rung-cap{font-size:.66rem;line-height:1.36;color:var(--fg-3);padding:9px 3px 0;border-top:1px solid var(--rule-2)}
+
+.marker{position:absolute;left:50%;transform:translateX(-50%);bottom:100%;width:max-content;max-width:150px;text-align:center;z-index:4;padding-bottom:2px}
+.marker.stack{bottom:calc(100% + 46px)}
+.marker-pill{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:5px;padding:5px 11px;display:block;white-space:nowrap}
+.marker-stem{width:2px;height:15px;margin:0 auto}
+.marker-tip{width:0;height:0;margin:0 auto;border-left:6px solid transparent;border-right:6px solid transparent}
+
+.bands{display:grid;grid-template-columns:repeat(4,1fr);margin-top:18px;border-top:1px solid var(--rule-2);min-width:740px}
+.band{padding:15px 12px 4px;border-right:1px solid var(--rule-2)}
+.band:last-child{border-right:none}
+.band-rule{height:2px;background:linear-gradient(90deg,transparent,var(--sky),transparent);opacity:.6;margin-bottom:10px}
+.band-name{font-family:var(--display);font-size:.83rem;font-weight:700;margin-bottom:3px}
+.band-desc{font-size:.72rem;color:var(--fg-3);line-height:1.42;margin-bottom:7px}
+.band-tag{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sky)}
+
+/* --- Flujo --- */
+.flow{flex:1;width:100%;max-width:700px;margin:0 auto;padding:34px 26px 76px}
+.flow.wide{max-width:1000px}
+.prog{margin-bottom:28px}
+.prog-meta{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:9px}
+.prog-meta b{color:var(--sky);font-weight:600}
+.prog-track{height:3px;background:var(--rule-2);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--royal),var(--azure),var(--bright));transition:width .45s cubic-bezier(.4,0,.2,1)}
+
+.panel{background:var(--panel);border:1px solid var(--rule-2);border-radius:var(--r-l);padding:30px 28px}
+.panel > .eyebrow{color:var(--sky);display:block;margin-bottom:12px}
+.panel h2{font-size:1.28rem;margin-bottom:10px}
+.panel-note{font-size:.88rem;color:var(--fg-2);margin-bottom:24px}
+.qtext{font-family:var(--display);font-size:1.18rem;font-weight:700;line-height:1.34;margin-bottom:8px}
+.qhelp{font-size:.84rem;color:var(--fg-3);margin-bottom:20px}
+
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:grid;grid-template-columns:20px 1fr;gap:13px;align-items:start;text-align:left;width:100%;
+  background:rgba(255,255,255,.035);border:1.5px solid var(--rule-2);border-radius:var(--r-m);padding:15px 17px;cursor:pointer;
+  font-size:.93rem;line-height:1.48;color:var(--fg-2);transition:border-color .16s,background .16s,color .16s}
+.opt:hover{border-color:rgba(120,175,255,.55);background:rgba(10,111,232,.1)}
+.opt.on{border-color:var(--bright);background:rgba(10,111,232,.16);color:#fff}
+.opt b{color:#fff;font-weight:700}
+.mark{width:19px;height:19px;border-radius:50%;border:2px solid rgba(255,255,255,.3);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:border-color .16s,background .16s}
+.opt.multi .mark{border-radius:5px}
+.opt.on .mark{border-color:var(--bright);background:var(--bright)}
+.opt.on .mark::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--void)}
+.opt.multi.on .mark::after{width:5px;height:9px;border-radius:0;background:none;border:solid var(--void);border-width:0 2.5px 2.5px 0;transform:rotate(42deg) translate(-1px,-1px)}
+.opt-lvl{font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sky);display:block;margin-bottom:3px}
+
+.glossary{margin-top:18px;border-left:2px solid var(--rule);padding-left:14px}
+.glossary p{font-size:.83rem;color:var(--fg-3);line-height:1.55}
+.glossary b{color:var(--fg-2);font-weight:600}
+.count-hint{font-size:.8rem;color:var(--fg-3);margin-top:13px;font-family:var(--mono);letter-spacing:.04em}
+
+/* --- Dato de contexto --- */
+.dato{margin-top:16px;background:var(--panel);border:1px solid var(--rule-2);border-left:3px solid var(--sky);border-radius:0 var(--r-m) var(--r-m) 0;padding:17px 20px}
+.dato .dl{font-family:var(--mono);font-size:.63rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--sky);display:block;margin-bottom:9px}
+.dato p{font-size:.86rem;line-height:1.55;color:var(--fg-2)}
+.dato p b{color:#fff;font-weight:600}
+.dato .cite{display:block;margin-top:10px;font-family:var(--mono);font-size:.64rem;color:var(--fg-3);line-height:1.5}
+
+/* --- Percepción: dos ranuras --- */
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
+@media(max-width:560px){.slots{grid-template-columns:1fr}}
+.slot{background:rgba(255,255,255,.04);border:1.5px solid var(--rule-2);border-radius:var(--r-m);padding:15px 17px;cursor:pointer;text-align:left;transition:border-color .18s,background .18s}
+.slot:hover{border-color:rgba(120,175,255,.5)}
+.slot.live{border-color:var(--bright);background:rgba(10,111,232,.14)}
+.slot .sl{font-family:var(--mono);font-size:.63rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:7px}
+.slot.live .sl{color:var(--sky)}
+.slot .sv{display:block;font-family:var(--mono);font-size:1.7rem;font-weight:600;line-height:1;color:var(--fg-3)}
+.slot .sn{display:block;font-family:var(--display);font-size:.85rem;font-weight:700;margin-top:4px;color:var(--fg-2)}
+.slot.set .sv{color:#fff}.slot.set .sn{color:#fff}
+.slot .sh{display:block;font-size:.76rem;color:var(--fg-3);margin-top:5px}
+
+/* --- Formulario --- */
+.field{margin-bottom:17px}
+.field label{display:block;font-size:.81rem;font-weight:600;margin-bottom:6px}
+.field .req{color:var(--sky)}
+.field .opt-tag{color:var(--fg-3);font-weight:400;font-size:.75rem}
+.field input,.field select{width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--rule-2);border-radius:var(--r-s);padding:11px 13px;color:#fff;font-size:.92rem;transition:border-color .18s}
+.field select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%234E9BFF' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px}
+.field select option{background:var(--deep);color:#fff}
+.field input::placeholder{color:rgba(255,255,255,.3)}
+.field input:focus,.field select:focus{border-color:var(--bright);outline:none}
+.field input.bad,.field select.bad{border-color:var(--amber)}
+.err{display:none;font-size:.76rem;color:var(--amber);margin-top:5px}
+.err.show{display:block}
+.field-hint{font-size:.78rem;color:var(--fg-3);margin-top:6px;line-height:1.45}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+
+.navrow{display:flex;gap:12px;justify-content:space-between;margin-top:22px}
+@media(max-width:600px){.navrow{flex-direction:column-reverse}.navrow .btn{width:100%}}
+
+/* ===================== INFORME ===================== */
+.report{background:var(--paper);color:var(--ink);min-height:100vh}
+.rhero{padding:46px 26px 44px;color:#fff;
+  background:radial-gradient(900px 520px at 80% 0%, rgba(0,73,190,.6), transparent 62%), linear-gradient(155deg,var(--void),var(--abyss) 45%,var(--navy))}
+.rhero-in{max-width:900px;margin:0 auto}
+.rhero .eyebrow{color:var(--sky);display:block;margin-bottom:13px}
+.rhero h2{font-size:clamp(1.45rem,3.6vw,2.1rem);margin-bottom:7px}
+.rhero .who{font-size:.88rem;color:var(--fg-2)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+@media(max-width:600px){.duo{grid-template-columns:1fr}}
+.duo-cell{background:rgba(255,255,255,.06);border:1px solid var(--rule);border-radius:var(--r-m);padding:19px}
+.duo-cell .eyebrow{color:var(--fg-3);margin-bottom:9px}
+.duo-num{font-family:var(--mono);font-size:2.5rem;font-weight:600;line-height:1;color:var(--amber)}
+.duo-name{font-family:var(--display);font-size:.95rem;font-weight:700;margin-top:3px}
+.duo-perc{font-size:.78rem;color:var(--fg-3);margin-top:7px;font-family:var(--mono)}
+
+.rbody{max-width:900px;margin:0 auto;padding:34px 26px 72px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-l);padding:26px;margin-bottom:18px}
+.card > .eyebrow{color:var(--azure);display:block;margin-bottom:10px}
+.card h3{font-size:1.1rem;margin-bottom:12px}
+.card p{font-size:.93rem;color:var(--ink-2);margin-bottom:12px}
+.card p:last-child{margin-bottom:0}
+.card p b{color:var(--ink);font-weight:600}
+
+.ladders2{display:flex;flex-direction:column;gap:16px}
+.mini{background:linear-gradient(150deg,var(--void),var(--abyss) 55%,var(--navy));border-radius:var(--r-l);padding:22px 22px 16px;color:#fff}
+.mini .eyebrow{color:var(--sky);display:block;margin-bottom:14px}
+.mini .ladder{padding-top:64px;min-width:640px;gap:5px}
+.mini .rung-cap{display:none}
+.mini .rung-name{font-size:.66rem;min-height:2.3em;margin-bottom:5px}
+.mini .rung-num{font-size:1rem}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-2)}
+.leg{display:flex;align-items:center;gap:8px;font-size:.79rem;color:var(--fg-2)}
+.leg i{width:11px;height:11px;border-radius:3px;flex-shrink:0;display:block}
+
+.verdict{border-radius:var(--r-m);padding:17px 19px;font-size:.93rem;line-height:1.58;margin-top:4px}
+.v-over{background:rgba(255,174,59,.12);border-left:3px solid var(--amber-dp);color:var(--ink)}
+.v-align{background:rgba(0,73,190,.08);border-left:3px solid var(--azure);color:var(--ink)}
+.v-under{background:rgba(78,155,255,.11);border-left:3px solid var(--bright);color:var(--ink)}
+.verdict strong{font-family:var(--display);font-weight:700}
+
+.profile{background:linear-gradient(150deg,var(--void),var(--navy));color:#fff;border-radius:var(--r-l);padding:28px;margin-bottom:18px}
+.profile .eyebrow{color:var(--amber);display:block;margin-bottom:11px}
+.profile h3{font-size:1.25rem;margin-bottom:14px}
+.profile p{font-size:.95rem;line-height:1.66;color:var(--fg-2);margin-bottom:13px}
+.profile p:last-child{margin-bottom:0}
+.profile p b{color:#fff;font-weight:600}
+
+.detail{width:100%;border-collapse:collapse;font-size:.87rem}
+.detail th{text-align:left;font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);font-weight:500;padding:0 0 9px;border-bottom:1px solid var(--line)}
+.detail td{padding:11px 0;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+.detail tr:last-child td{border-bottom:none}
+.detail .q{color:var(--ink);font-weight:600;width:38%;padding-right:16px}
+.detail .n{font-family:var(--mono);font-weight:600;color:var(--azure);text-align:right;width:3.5em;font-variant-numeric:tabular-nums}
+.detail .med td{border-top:2px solid var(--line);font-weight:700;color:var(--ink)}
+
+.ref{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--azure);border-radius:0 var(--r-l) var(--r-l) 0;padding:24px 26px;margin-bottom:18px}
+.ref > .eyebrow{color:var(--azure);display:block;margin-bottom:10px}
+.ref h3{font-size:1.02rem;margin-bottom:10px}
+.ref p{font-size:.92rem;color:var(--ink-2)}
+.ref p b{color:var(--ink);font-weight:700}
+.ref .cite{display:block;margin-top:11px;font-family:var(--mono);font-size:.67rem;color:var(--ink-3);line-height:1.6}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.chip{font-size:.79rem;border-radius:99px;padding:5px 13px;background:var(--paper);border:1px solid var(--line);color:var(--ink-2)}
+.chip.on{background:rgba(0,73,190,.08);border-color:rgba(0,73,190,.3);color:#0037A0;font-weight:500}
+
+.savebar{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:13px 16px;margin-bottom:18px;font-size:.85rem;color:var(--ink-2)}
+.savebar strong{display:block;color:var(--ink);font-family:var(--display);font-size:.9rem}
+.spin{width:15px;height:15px;border:2px solid var(--line);border-top-color:var(--azure);border-radius:50%;animation:sp .7s linear infinite;flex-shrink:0}
+@keyframes sp{to{transform:rotate(360deg)}}
+.retry{margin-left:auto;background:var(--paper);border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-size:.78rem;cursor:pointer;color:var(--ink);flex-shrink:0}
+
+.closing{text-align:center;padding:14px 0 0}
+.closing h3{font-size:1.05rem;margin-bottom:10px}
+.closing p{font-size:.92rem;color:var(--ink-2);max-width:54ch;margin:0 auto 20px}
+.blink{display:inline-block;background:linear-gradient(102deg,var(--azure),var(--bright));color:#fff;border-radius:99px;padding:13px 30px;font-size:.92rem;font-weight:600;text-decoration:none}
+.sources{font-family:var(--mono);font-size:.67rem;line-height:1.85;color:var(--ink-3);padding-top:20px;margin-top:24px;border-top:1px solid var(--line)}
+.sources b{display:block;color:var(--ink-2);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:.63rem;margin-bottom:9px}
+
+footer{border-top:1px solid var(--rule-2);padding:24px 26px;text-align:center}
+footer .eyebrow{color:var(--fg-3)}
+.report footer{border-top:1px solid var(--line)}
+.report footer .eyebrow{color:var(--ink-3)}
+
+@media(max-width:640px){
+  .cover{padding:42px 18px 24px}
+  .ladder-wrap{padding:26px 18px 56px}
+  .flow{padding:26px 18px 60px}
+  .panel{padding:24px 20px}
+  .rbody{padding:26px 18px 56px}
+  .card,.profile{padding:22px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= PORTADA ================= -->
+<div id="v-cover" class="view active">
+ <div class="stage">
+  <div class="cover">
+    <h1>Casi 9 de cada 10 empresas ya usa IA. <em>Solo el 6% la ve en sus resultados.</em></h1>
+    <p class="cover-lede">Este assessment ubica dos cosas por separado en una misma escalera de ocho niveles: dónde está usted con la IA y dónde está su organización. Contrasta además lo que usted cree con lo que revela su práctica.</p>
+    <div class="facts">
+      <span class="fact">9 preguntas</span>
+      <span class="fact">7 minutos</span>
+      <span class="fact">Resultado inmediato</span>
+    </div>
+    <button class="btn" onclick="ir('v-form')">Comenzar el diagnóstico</button>
+
+    <div class="callout">
+      <p><b>Confidencialidad.</b> Ninguna respuesta individual será publicada ni compartida. Los hallazgos del estudio se difundirán únicamente de forma unificada, sin identificar personas ni empresas.</p>
+    </div>
+  </div>
+
+  <div class="ladder-wrap">
+    <span class="eyebrow">Co23 Framework</span>
+    <h2>Mapa de Capacidades e Impacto en IA</h2>
+    <p class="ladder-sub">Ocho escalones agrupados en cuatro bandas de impacto. Cada uno describe una forma distinta de trabajar con IA.</p>
+    <div class="scroller">
+      <div class="ladder" id="ld-cover"></div>
+      <div class="bands" id="bd-cover"></div>
+    </div>
+  </div>
+
+  <footer><span class="eyebrow">Colectivo23</span></footer>
+ </div>
+</div>
+
+<!-- ================= FORMULARIO ================= -->
+<div id="v-form" class="view">
+ <div class="stage">
+  <div class="flow">
+    <div class="prog">
+      <div class="prog-meta"><span>Paso 1 de 5</span><b>Identificación</b></div>
+      <div class="prog-track"><div class="prog-fill" style="width:6%"></div></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Sus datos</span>
+      <h2>Antes de empezar</h2>
+      <p class="panel-note">Estos campos permiten producir los cortes del estudio: por cargo, tamaño de empresa e industria. Ninguna respuesta individual se publica.</p>
+
+      <div class="field"><label for="f-pos">Cargo <span class="req">*</span></label>
+        <select id="f-pos"></select><div class="err" id="e-pos">Seleccione su cargo.</div></div>
+      <div class="field"><label for="f-tam">Tamaño de la empresa <span class="req">*</span></label>
+        <select id="f-tam"></select><div class="err" id="e-tam">Seleccione un rango.</div></div>
+      <div class="field"><label for="f-ind">Industria <span class="req">*</span></label>
+        <select id="f-ind"></select><div class="err" id="e-ind">Seleccione su industria.</div></div>
+      <div class="field"><label for="f-emp">Empresa <span class="opt-tag">(opcional)</span></label>
+        <input type="text" id="f-emp" placeholder="Nombre de su organización" autocomplete="organization">
+        <p class="field-hint">Solo para personalizar su diagnóstico. No se publica.</p></div>
+      <div class="field"><label for="f-mail">Correo corporativo <span class="opt-tag">(opcional)</span></label>
+        <input type="email" id="f-mail" placeholder="ana@empresa.com" autocomplete="email">
+        <div class="err" id="e-mail">El correo no parece válido. Corríjalo o déjelo en blanco.</div>
+        <p class="field-hint">Déjelo solo si quiere recibir su diagnóstico por correo.</p></div>
+
+      <div class="navrow">
+        <button class="btn back" onclick="ir('v-cover')">← Atrás</button>
+        <button class="btn" onclick="enviarForm()">Continuar →</button>
+      </div>
+    </div>
+  </div>
+  <footer><span class="eyebrow">Colectivo23</span></footer>
+ </div>
+</div>
+
+<!-- ================= PERCEPCIÓN ================= -->
+<div id="v-perc" class="view">
+ <div class="stage">
+  <div class="flow wide">
+    <div class="prog">
+      <div class="prog-meta"><span>Paso 2 de 5</span><b>Percepción</b></div>
+      <div class="prog-track"><div class="prog-fill" style="width:16%"></div></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Autoevaluación</span>
+      <h2>¿En qué escalón se ubica, y en cuál ubica a su organización?</h2>
+      <p class="panel-note">Toque un escalón para ubicarse a usted mismo. Después toque otro para su organización. Puede corregir cualquiera de los dos volviendo a tocar su tarjeta.</p>
+
+      <div class="slots">
+        <button class="slot" id="slot-yo" onclick="activarSlot(0)"></button>
+        <button class="slot" id="slot-org" onclick="activarSlot(1)"></button>
+      </div>
+
+      <div class="scroller">
+        <div class="ladder" id="ld-perc"></div>
+      </div>
+
+      <div id="perc-dato"></div>
+    </div>
+    <div class="navrow">
+      <button class="btn back" onclick="ir('v-form')">← Atrás</button>
+      <button class="btn" id="perc-next" onclick="salirPercepcion()" disabled>Continuar →</button>
+    </div>
+  </div>
+  <footer><span class="eyebrow">Colectivo23</span></footer>
+ </div>
+</div>
+
+<!-- ================= PREGUNTAS ================= -->
+<div id="v-quiz" class="view">
+ <div class="stage">
+  <div class="flow">
+    <div class="prog">
+      <div class="prog-meta"><span id="p-step"></span><b id="p-sec"></b></div>
+      <div class="prog-track"><div class="prog-fill" id="p-fill"></div></div>
+    </div>
+    <div class="panel">
+      <div class="eyebrow" id="q-count"></div>
+      <div class="qtext" id="q-text"></div>
+      <div class="qhelp" id="q-help"></div>
+      <div id="q-opts"></div>
+      <div id="q-extra"></div>
+    </div>
+    <div id="q-dato"></div>
+    <div class="navrow">
+      <button class="btn back" id="b-back" onclick="anterior()">← Atrás</button>
+      <button class="btn" id="b-next" onclick="siguiente()" disabled>Siguiente →</button>
+    </div>
+  </div>
+  <footer><span class="eyebrow">Colectivo23</span></footer>
+ </div>
+</div>
+
+<!-- ================= INFORME ================= -->
+<div id="v-report" class="view">
+  <div class="report">
+    <div class="rhero"><div class="rhero-in" id="r-hero"></div></div>
+    <div class="rbody" id="r-body"></div>
+    <footer><span class="eyebrow">Colectivo23</span></footer>
+  </div>
+</div>
+
+<script>
+/* ==========================================================
+   CONFIGURACIÓN
+   ========================================================== */
+var CONFIG = {
+  // ---- Conexión con Google Drive ----
+  // URL del Apps Script desplegado como aplicación web ("Cualquier persona").
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyKgTLxowLzSIfLc0zfo0nCNUMsvKz5cs9jD8sEz4cWS_kgD_mndcbnkH4uEwQ9PDHG/exec',
+  // 'POST' envía todo, incluido informe_json (recomendado, necesario para el PDF).
+  // 'GET'  solo manda las columnas planas; la URL no aguanta el informe completo.
+  METODO_ENVIO: 'POST',
+  TOKEN: 'PBS-CO23-ASSESSMENT-2026',
+
+  // ---- Contenido ----
+  LINK_PROGRAMA: 'https://www.colectivo23.com',
+  FECHA_INFORME: '30 de setiembre'
+};
+
+/* ==========================================================
+   MARCO CO23
+   ========================================================== */
+var NIVELES = [
+ {n:1,nombre:'Principiante curioso',cap:'Alfabetización digital e IA awareness',banda:0,
+  exige:'Usar IA con regularidad en tareas propias y afinar cómo le pide las cosas.'},
+ {n:2,nombre:'Aprendiz activo',cap:'Prompting efectivo y colaboración con IA',banda:0,
+  exige:'Convertir el uso ocasional en rutina, con resultados consistentes.'},
+ {n:3,nombre:'Implementador inicial',cap:'Aplicación con herramientas de IA',banda:1,
+  exige:'Conectar la IA con otras herramientas para que parte del trabajo se ejecute sin usted.'},
+ {n:4,nombre:'Conector funcional',cap:'Integración y automatización simple',banda:1,
+  exige:'Incorporar reglas y decisiones al flujo, y ponerlo a operar para el equipo.'},
+ {n:5,nombre:'Estratega automatizador',cap:'Sistemas de decisión automatizados',banda:2,
+  exige:'Diseñar el proceso completo: dónde decide la máquina y dónde una persona.'},
+ {n:6,nombre:'Arquitecto colaborativo',cap:'Diseño de flujos y soluciones IA integradas',banda:2,
+  exige:'Llevar esas soluciones a producción con métricas, responsables y gobierno.'},
+ {n:7,nombre:'Diseñador organizacional',cap:'Agentes de automatización funcional',banda:3,
+  exige:'Convertir la IA en ventaja competitiva medible en la utilidad del negocio.'},
+ {n:8,nombre:'Visionario tecnológico',cap:'Agentes cognitivos y autónomos',banda:3,
+  exige:'Sostener la ventaja: es el escalón más alto del marco.'}
+];
+var BANDAS = [
+ {nombre:'Exploración y confianza',desc:'Comprensión básica y primeros usos',tag:'Personal'},
+ {nombre:'Eficiencia y aplicación',desc:'Uso funcional y estructuración de procesos',tag:'Operativo'},
+ {nombre:'Automatización y criterio',desc:'Decisión, integración y diseño híbrido',tag:'Estratégico'},
+ {nombre:'Escalabilidad y liderazgo',desc:'Impacto organizacional e innovación avanzada',tag:'Organizacional'}
+];
+/* Rampa monocromática: de azul profundo a azul vivo */
+var GRAD = [
+ 'linear-gradient(to top,#000A3C,#001259)','linear-gradient(to top,#000E4A,#001881)',
+ 'linear-gradient(to top,#00136B,#0026A3)','linear-gradient(to top,#001881,#0033B4)',
+ 'linear-gradient(to top,#0026A3,#0049BE)','linear-gradient(to top,#0033B4,#0059D6)',
+ 'linear-gradient(to top,#0049BE,#0A6FE8)','linear-gradient(to top,#0059D6,#3F90FF)'
+];
+var ALT = [56,84,112,140,168,196,224,252];
+var C_PERC = '#A9C9FF', C_DX = '#FFAE3B';
+
+/* ==========================================================
+   FUENTES
+   ========================================================== */
+var FUENTES = {
+  mck:'McKinsey · The State of AI, 2026 (1.719 ejecutivos, 97 países)',
+  ibm:'IBM · CEO Study, 2026 (2.000 CEOs, 33 geografías)',
+  bcg:'BCG · AI Radar, 2026 (2.360 ejecutivos, 640 CEOs, 16 mercados)',
+  pwc:'PwC Perú + UTEC · IA insights, agosto 2026',
+  menlo:'Menlo Ventures · The State of Consumer AI, 2025',
+  skill:'Skillsoft · Workforce Readiness Report, AI Edition, 2026'
+};
+function citar(k){ return k.split('|').map(function(x){return FUENTES[x];}).join(' · '); }
+
+/* ==========================================================
+   CATÁLOGOS
+   ========================================================== */
+var POSICIONES = ['CEO / Gerente General','Presidente del directorio','Miembro del directorio','COO / Gerente de Operaciones','CFO / Gerente de Finanzas','CTO / CIO / Gerente de Tecnología','CDO / Gerente de Datos o Digital','CHRO / Gerente de Personas','CMO / Gerente Comercial o de Marketing','Gerente General de unidad de negocio','Director o VP de área','Otro cargo ejecutivo'];
+var TAMANOS = ['Menos de 50','50 a 250','251 a 500','501 a 1,000','1,001 a 5,000','Más de 5,000'];
+var INDUSTRIAS = ['Banca y servicios financieros','Seguros','Retail y consumo masivo','Minería y energía','Manufactura e industria','Telecomunicaciones y tecnología','Salud y farmacéutica','Educación','Construcción e inmobiliaria','Transporte y logística','Agroindustria','Servicios profesionales y consultoría','Sector público','Otra'];
+
+/* ==========================================================
+   PREGUNTAS
+   v = escalón que declara la alternativa
+   ========================================================== */
+var PREGUNTAS = [
+ /* ---------- PERSONAL ---------- */
+ {id:'p1',bloque:'Usted',paso:3,tipo:'unica',dim:'Criterio sobre la IA',score:'yo',
+  q:'Antes de usar un dato generado con IA para tomar una decisión de inversión, ¿cómo verifica su confiabilidad?',
+  help:'Mide si distingue entre una respuesta plausible y un dato verificado.',
+  opts:[
+   {t:'No lo sé. Asumo que lo que entrega está bien.',v:1,eco:'Este es el punto donde la velocidad de la IA se vuelve riesgo en lugar de ventaja.'},
+   {t:'Por instinto. Reviso cuando algo me suena raro.',v:2,eco:'El instinto funciona hasta que el error suena razonable. Ahí es donde pasa.'},
+   {t:'Con método. Verifico fuentes y contrasto cifras críticas.',v:4,eco:'Tiene método propio. Lo que falta es que no dependa de usted.'},
+   {t:'Con reglas. Tengo criterios explícitos y mi equipo los conoce.',v:6,eco:'Criterio escrito y compartido: es exactamente lo que a la mayoría de organizaciones le falta.'}
+  ],
+  dato:'<b>78% de los ejecutivos</b> dice que la IA avanza más rápido de lo que su organización alcanza a capacitar.',fuente:'skill'},
+
+ {id:'p2',bloque:'Usted',paso:3,tipo:'unica',dim:'IA en sus decisiones',score:'yo',
+  q:'¿La IA entra en sus decisiones, o solo en sus entregables?',
+  help:'Mide si la IA llegó al núcleo del rol ejecutivo o se quedó en la periferia.',
+  opts:[
+   {t:'Solo entregables. Documentos, correos, presentaciones.',v:1,eco:'La IA le ahorra tiempo, no le cambia criterio. Es donde se queda la mayoría.'},
+   {t:'Preparo con ella, decido igual. El análisis mejora; el criterio es el de siempre.',v:3,eco:'Está a un paso: ya la usa para pensar, todavía no para decidir.'},
+   {t:'Decisiones tácticas. La alimento con datos propios de la empresa.',v:5,eco:'Alimentarla con datos propios lo acerca a ese 16% peruano.'},
+   {t:'Decisiones estratégicas. Ya he tomado decisiones mayores con su input.',v:7,eco:'Está donde el 64% de los CEOs globales dice estar y solo el 16% de los profesionales peruanos llega.'}
+  ],
+  dato:'<b>64% de los CEOs del mundo</b> ya decide asuntos estratégicos con input de IA. En el Perú, solo el <b>16%</b> de los profesionales la usa para decidir.',fuente:'ibm|pwc'},
+
+ {id:'p3',bloque:'Usted',paso:3,tipo:'unica',dim:'Construcción y automatización',score:'yo',
+  q:'¿Qué es lo más avanzado que ha construido o mandado a construir con IA?',
+  help:'Cuenta lo que existe y funciona, no lo que está en evaluación.',
+  glosario:'<b>Asistente:</b> responde cuando usted le pide algo. <b>Agente:</b> ejecuta un proceso completo por su cuenta — decide los pasos, usa herramientas y solo le reporta el resultado.',
+  opts:[
+   {t:'Instrucciones o plantillas. Las reutilizo cada vez que repito una tarea.',v:2,eco:'Sus activos son artesanales y de uso personal.'},
+   {t:'Un asistente configurado. Resuelve una tarea concreta cuando se lo pido.',v:3,eco:'Tiene al menos una herramienta de IA configurada a medida.'},
+   {t:'Un flujo automatizado. Conecta dos o más herramientas y corre sin intervención.',v:4,eco:'Ya hay automatización real conectando sistemas.'},
+   {t:'Un agente. Ejecuta un proceso completo del negocio, con métricas de desempeño.',v:6,eco:'Hay un proceso de negocio operado por IA y medido. Muy pocos llegan aquí.'},
+   {t:'Varios agentes en producción. Integrados a procesos críticos, con gobierno y responsables definidos.',v:8,eco:'La IA opera procesos críticos bajo gobierno formal: el techo del marco.'}
+  ],
+  dato:'De los 1.800 millones de personas que han usado IA, solo el <b>3% paga</b> por ella. El <b>97%</b> nunca salió de la versión gratuita — es decir, consume, no construye.',fuente:'menlo'},
+
+ /* ---------- EMPRESA ---------- */
+ {id:'p4',bloque:'Su organización',paso:4,tipo:'unica',dim:'Alcance de la IA',score:'org',
+  q:'¿Cómo trabaja su equipo con IA?',
+  help:'Mide hasta dónde llega la IA dentro de la organización.',
+  opts:[
+   {t:'Cada uno por su cuenta. Sin estándar ni visibilidad.',v:1,eco:'Sin visibilidad no hay forma de saber si su empresa está en ese 44% o muy por debajo.'},
+   {t:'Mi área completa. La usan libremente, sin proceso definido.',v:3,eco:'Un área entera usándola es avance real, pero sin proceso no escala sola.'},
+   {t:'Transversal. Las decisiones de IA influyen en diversas áreas.',v:5,eco:'Cruzar fronteras de área es justo lo que separa al 44% que escala del resto.'},
+   {t:'Varios procesos y agentes. Corriendo en producción.',v:7,eco:'Está en el 44% que llegó a escalar, y en la parte alta de ese grupo.'}
+  ],
+  dato:'<b>44% de las empresas</b> escala la IA a nivel compañía. El resto sigue en pruebas que no se sostienen solas.',fuente:'mck'},
+
+ {id:'p5',bloque:'Su organización',paso:4,tipo:'unica',dim:'Gobierno y responsabilidad',score:'org',
+  q:'Si mañana la IA causa un error grave en su empresa, ¿quién responde?',
+  help:'Mide si existe una figura formal y reglas escritas, no solo buena voluntad.',
+  opts:[
+   {t:'Nadie definido. Se resolvería sobre la marcha.',v:1,eco:'Su empresa está fuera del 76% que ya nombró a alguien. Es lo más barato de corregir de todo el assessment.'},
+   {t:'TI o un comité. Lo verían quienes estén más cerca del tema.',v:3,eco:'Un área cercana no es un responsable. La diferencia se nota el día del incidente.'},
+   {t:'Un responsable con nombre. Hay un cargo formal a cargo de IA o datos.',v:5,eco:'Está en el 76%. Lo que falta —las reglas escritas— es lo que solo el 10% en el Perú tiene.'},
+   {t:'Un responsable y reglas escritas. Hay políticas de uso, riesgo y datos.',v:7,eco:'Responsable más gobernanza escrita: eso es el 10% de las empresas peruanas.'}
+  ],
+  dato:'<b>76% de las organizaciones</b> ya nombró un responsable de IA — hace un año era el 26%. En el Perú, solo el <b>10%</b> tiene un modelo de gobernanza integrado.',fuente:'ibm|pwc'},
+
+ {id:'p6',bloque:'Su organización',paso:4,tipo:'unica',dim:'Impacto en la rentabilidad',score:'org',
+  q:'¿La IA ya se nota en la rentabilidad de su empresa?',
+  help:'Mide impacto medido, no impacto percibido.',
+  opts:[
+   {t:'Todavía no. No lo hemos medido.',v:1,eco:'Sin medición no hay forma de entrar al 37%, aunque el impacto exista.'},
+   {t:'Se nota en tiempo. Ahorramos horas, pero no lo vemos en los números.',v:3,eco:'El ahorro de horas es real, pero no es lo que cuenta el 37%.'},
+   {t:'Sí, algo. Hay impacto medible en costos o ingresos, todavía pequeño.',v:6,eco:'Está en el 37%. El salto al 6% es el más difícil de todo el recorrido.'},
+   {t:'Sí, claramente. Pesa 5% o más de nuestra utilidad operativa.',v:8,eco:'Está en el 6%, un grupo que no crece hace dos años.'}
+  ],
+  dato:'<b>37% de las empresas</b> atribuye algún impacto en EBIT a la IA — la misma cifra que el año pasado. Solo el <b>6%</b> supera el 5%, y ese grupo no crece hace dos años.',fuente:'mck'},
+
+ /* ---------- ESTADÍSTICAS ---------- */
+ {id:'p7',bloque:'Estadísticas',paso:5,tipo:'multiple',max:8,
+  q:'¿Qué plataformas de IA están oficialmente permitidas o en uso en su organización?',
+  help:'Marque todas las que cuenten con aprobación o uso institucional.',
+  opts:[
+   {t:'ChatGPT / OpenAI'},{t:'Microsoft Copilot'},{t:'Google Gemini'},{t:'Claude / Anthropic'},
+   {t:'Perplexity'},{t:'Herramientas propias desarrolladas internamente'},
+   {t:'Ninguna está formalmente permitida',solo:true},{t:'No lo sé',solo:true}
+  ],
+  dato:'Solo el <b>10% de las empresas peruanas</b> tiene un modelo de gobernanza de IA integrado, aunque casi todas ya tengan herramientas en uso.',fuente:'pwc'},
+
+ {id:'p8',bloque:'Estadísticas',paso:5,tipo:'unica',
+  q:'¿Cuánto estima que su empresa invertirá en iniciativas de IA en los próximos 2 años?',
+  help:'Una estimación aproximada es suficiente.',
+  opts:[
+   {t:'Menos de US$ 100 mil'},{t:'US$ 100 mil – 500 mil'},{t:'US$ 500 mil – 1 millón'},
+   {t:'Más de US$ 1 millón'},{t:'No lo sé, o no tenemos presupuesto definido'}
+  ],
+  dato:'<b>79% de las empresas peruanas</b> aumentará su inversión en IA. El <b>70%</b> pondrá el dinero primero en gestión de datos.',fuente:'pwc'},
+
+ {id:'p9',bloque:'Estadísticas',paso:5,tipo:'multiple',max:3,
+  q:'Pensando en 2027, ¿qué temas de IA más le preocupan como líder?',
+  help:'Elija hasta tres.',
+  opts:[
+   {t:'Ciberseguridad'},{t:'Privacidad y protección de datos'},{t:'Costos de escalamiento'},
+   {t:'ROI de las inversiones'},{t:'Deuda técnica'},{t:'Ética y uso responsable'},
+   {t:'Falta de talento'},{t:'Resistencia organizacional al cambio'},
+   {t:'Dependencia de proveedores'},{t:'Que el liderazgo no esté adoptando IA con suficiente rapidez'}
+  ],
+  dato:'<b>72% de los CEOs</b> ya es el principal decisor de IA de su organización, casi el doble que hace un año.',fuente:'bcg'}
+];
+
+/* Referencia externa según el escalón individual alcanzado */
+var REFERENCIA = [
+ {d:'El <b>97%</b> de quienes han usado IA nunca pasó de la versión gratuita. Está en el grupo más numeroso, y también en el que más rápido se queda atrás.',f:'menlo'},
+ {d:'El <b>97%</b> de quienes han usado IA nunca pasó de la versión gratuita. Está en el grupo más numeroso, y también en el que más rápido se queda atrás.',f:'menlo'},
+ {d:'Solo el <b>3%</b> de los usuarios de IA en el mundo paga por ella. Usarla a diario y con criterio de herramienta ya lo separa de la enorme mayoría.',f:'menlo'},
+ {d:'Solo el <b>44% de las empresas</b> logra que la IA corra sin intervención constante. Usted ya construye a ese nivel; la pregunta es si su organización lo sostiene.',f:'mck'},
+ {d:'<b>64% de los CEOs del mundo</b> dice decidir asuntos estratégicos con input de IA. En el Perú, solo el <b>16%</b> de los profesionales la usa para decidir. Está en ese grupo corto.',f:'ibm|pwc'},
+ {d:'<b>64% de los CEOs</b> decide con input de IA, pero solo el <b>37% de las empresas</b> ve algún impacto en su EBIT. Diseñar el proceso es lo que cierra esa distancia.',f:'ibm|mck'},
+ {d:'<b>72% de los CEOs</b> ya es el principal decisor de IA de su organización, casi el doble que hace un año. Usted está en esa posición, con capacidad instalada detrás.',f:'bcg'},
+ {d:'Solo el <b>6% de las empresas</b> atribuye a la IA más del 5% de su EBIT, y ese grupo no crece hace dos años. Ahí es donde se juega la ventaja que usted ya puede reclamar.',f:'mck'}
+];
+
+/* ==========================================================
+   ESTADO
+   ========================================================== */
+var idx = 0, R = {}, perfil = {}, payload = null;
+var perc = {yo:null, org:null, slot:0};
+
+/* ==========================================================
+   ESCALERA
+   ========================================================== */
+function pintarEscalera(id, bandsId, marcas, clickable, escala, onPick){
+  var t = document.getElementById(id);
+  if(!t) return;
+  var k = escala || 1;
+  t.innerHTML = '';
+  for(var i=0;i<NIVELES.length;i++){
+    var L = NIVELES[i];
+    var col = document.createElement(clickable ? 'button' : 'div');
+    col.className = 'rung' + (clickable ? ' pick' : '');
+    if(clickable) col.type = 'button';
+    var mh = '';
+    if(marcas){
+      var aqui = marcas.filter(function(m){ return m.n === L.n; });
+      for(var j=0;j<aqui.length;j++){
+        var m = aqui[j];
+        var st = (aqui.length > 1 && j === 0) ? ' stack' : '';
+        mh += '<span class="marker'+st+'">'+
+          '<span class="marker-pill" style="background:'+m.color+';color:'+m.fg+'">'+m.label+'</span>'+
+          '<span class="marker-stem" style="background:'+m.color+'"></span>'+
+          '<span class="marker-tip" style="border-top:7px solid '+m.color+'"></span></span>';
+      }
+    }
+    col.innerHTML = mh +
+      '<span class="rung-name">'+L.nombre+'</span>'+
+      '<span class="rung-bar" style="height:'+Math.round(ALT[i]*k)+'px;background:'+GRAD[i]+'"><span class="rung-num">'+L.n+'</span></span>'+
+      '<span class="rung-cap">'+L.cap+'</span>';
+    if(clickable && onPick){ (function(nn){ col.onclick = function(){ onPick(nn); }; })(L.n); }
+    t.appendChild(col);
+  }
+  if(bandsId){
+    var b = document.getElementById(bandsId);
+    if(b){
+      var h = '';
+      for(var q=0;q<BANDAS.length;q++){
+        h += '<div class="band"><div class="band-rule"></div><div class="band-name">'+BANDAS[q].nombre+
+             '</div><div class="band-desc">'+BANDAS[q].desc+'</div><div class="band-tag">'+BANDAS[q].tag+'</div></div>';
+      }
+      b.innerHTML = h;
+    }
+  }
+}
+
+/* ==========================================================
+   NAVEGACIÓN
+   ========================================================== */
+function ir(id){
+  var v = document.querySelectorAll('.view');
+  for(var i=0;i<v.length;i++) v[i].classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function llenar(id, lista, ph){
+  var s = document.getElementById(id), h = '<option value="">'+ph+'</option>';
+  for(var i=0;i<lista.length;i++) h += '<option value="'+lista[i]+'">'+lista[i]+'</option>';
+  s.innerHTML = h;
+}
+function reiniciar(){
+  if(!confirm('¿Desea reiniciar el assessment? Se perderán sus respuestas.')) return;
+  idx = 0; R = {}; perc = {yo:null, org:null, slot:0};
+  ir('v-form');
+}
+function esc(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+/* ==========================================================
+   FORMULARIO
+   ========================================================== */
+function enviarForm(){
+  var campos = [
+    ['f-pos','e-pos',function(v){ return !!v; }],
+    ['f-tam','e-tam',function(v){ return !!v; }],
+    ['f-ind','e-ind',function(v){ return !!v; }],
+    // El correo es opcional: solo se valida el formato si escribieron algo.
+    ['f-mail','e-mail',function(v){ return v === '' || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }]
+  ];
+  var ok = true;
+  for(var i=0;i<campos.length;i++){
+    var el = document.getElementById(campos[i][0]), er = document.getElementById(campos[i][1]);
+    if(campos[i][2](el.value.trim())){ er.classList.remove('show'); el.classList.remove('bad'); }
+    else { er.classList.add('show'); el.classList.add('bad'); ok = false; }
+  }
+  if(!ok){ var f = document.querySelector('.bad, .err.show'); if(f) f.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+
+  perfil = {
+    cargo:document.getElementById('f-pos').value,
+    trabajadores:document.getElementById('f-tam').value,
+    industria:document.getElementById('f-ind').value,
+    empresa:document.getElementById('f-emp').value.trim(),
+    email:document.getElementById('f-mail').value.trim()
+  };
+  perc = {yo:null, org:null, slot:0};
+  pintarPercepcion();
+  ir('v-perc');
+}
+
+/* ==========================================================
+   PERCEPCIÓN — una escalera, dos marcadores
+   ========================================================== */
+function activarSlot(i){ perc.slot = i; pintarPercepcion(); }
+
+function elegirEscalon(n){
+  if(perc.slot === 0){
+    perc.yo = n;
+    if(perc.org === null) perc.slot = 1;
+  } else {
+    perc.org = n;
+    if(perc.yo === null) perc.slot = 0;
+  }
+  pintarPercepcion();
+}
+
+function pintarPercepcion(){
+  var marcas = [];
+  if(perc.yo !== null)  marcas.push({n:perc.yo,  label:'Usted',        color:C_PERC, fg:'#00061F'});
+  if(perc.org !== null) marcas.push({n:perc.org, label:'Su organización', color:C_DX, fg:'#00061F'});
+  pintarEscalera('ld-perc', null, marcas, true, 0.66, elegirEscalon);
+
+  var sy = document.getElementById('slot-yo'), so = document.getElementById('slot-org');
+  sy.className = 'slot' + (perc.slot===0?' live':'') + (perc.yo!==null?' set':'');
+  so.className = 'slot' + (perc.slot===1?' live':'') + (perc.org!==null?' set':'');
+  sy.innerHTML = '<span class="sl">Usted</span>'+
+    (perc.yo!==null ? '<span class="sv">'+perc.yo+'</span><span class="sn">'+NIVELES[perc.yo-1].nombre+'</span>'
+                    : '<span class="sv">—</span><span class="sh">Toque un escalón para ubicarse</span>');
+  so.innerHTML = '<span class="sl">Su organización</span>'+
+    (perc.org!==null ? '<span class="sv">'+perc.org+'</span><span class="sn">'+NIVELES[perc.org-1].nombre+'</span>'
+                     : '<span class="sv">—</span><span class="sh">Toque un escalón para ubicarla</span>');
+
+  var listo = (perc.yo !== null && perc.org !== null);
+  document.getElementById('perc-next').disabled = !listo;
+
+  document.getElementById('perc-dato').innerHTML =
+    '<div class="dato"><span class="dl">El dato</span>'+
+    '<p><b>86% de los CEOs</b> cree que su gente ya sabe usar IA. Solo el <b>25% de los trabajadores</b> la usa con regularidad.'+
+    '<span class="cite">'+citar('ibm|mck')+'</span></p></div>';
+}
+
+function salirPercepcion(){
+  if(perc.yo === null || perc.org === null) return;
+  idx = 0;
+  pintarPregunta();
+  ir('v-quiz');
+}
+
+/* ==========================================================
+   MOTOR DE PREGUNTAS
+   ========================================================== */
+function pintarPregunta(){
+  var P = PREGUNTAS[idx], total = PREGUNTAS.length;
+  document.getElementById('p-step').textContent = 'Paso '+P.paso+' de 5';
+  document.getElementById('p-sec').textContent = P.bloque;
+  document.getElementById('p-fill').style.width = (Math.round(((idx+1)/total)*78) + 22) + '%';
+  document.getElementById('q-count').textContent = 'Pregunta '+(idx+1)+' de '+total;
+  document.getElementById('q-text').textContent = P.q;
+  document.getElementById('q-help').textContent = P.help || '';
+
+  var box = document.getElementById('q-opts'), extra = document.getElementById('q-extra');
+  box.className = 'opts'; box.innerHTML = ''; extra.innerHTML = '';
+
+  if(P.tipo === 'multiple'){
+    var sel = R[P.id] || [];
+    for(var m=0;m<P.opts.length;m++){
+      box.appendChild(boton(P.opts[m].t, sel.indexOf(m) > -1, true,
+        (function(i){ return function(){ marcarMulti(P,i); }; })(m)));
+    }
+    if(P.max < P.opts.length){
+      var h = document.createElement('div');
+      h.className = 'count-hint';
+      h.textContent = sel.length + ' de ' + P.max + ' seleccionadas';
+      extra.appendChild(h);
+    }
+  } else {
+    for(var u=0;u<P.opts.length;u++){
+      box.appendChild(boton(P.opts[u].t, R[P.id] === u, false,
+        (function(i){ return function(){ R[P.id] = i; pintarPregunta(); }; })(u)));
+    }
+  }
+  if(P.glosario){
+    var g = document.createElement('div');
+    g.className = 'glossary';
+    g.innerHTML = '<p>'+P.glosario+'</p>';
+    extra.appendChild(g);
+  }
+
+  document.getElementById('q-dato').innerHTML =
+    '<div class="dato"><span class="dl">El dato</span>'+
+    '<p>'+P.dato+'<span class="cite">'+citar(P.fuente)+'</span></p></div>';
+
+  document.getElementById('b-back').style.visibility = 'visible';
+  var nb = document.getElementById('b-next');
+  nb.disabled = !respondida(P);
+  nb.textContent = idx === total-1 ? 'Ver mi resultado →' : 'Siguiente →';
+}
+
+/* La primera frase de cada alternativa es la respuesta puntual: va en negrita.
+   Las alternativas de una sola frase (plataformas, preocupaciones) quedan planas. */
+function resaltar(txt){
+  var m = txt.match(/^([^.]+\.)\s+(.+)$/);
+  return m ? '<b>'+m[1]+'</b> '+m[2] : txt;
+}
+
+function boton(txt, on, multi, fn){
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'opt' + (multi ? ' multi' : '') + (on ? ' on' : '');
+  b.innerHTML = '<span class="mark"></span><span>'+resaltar(txt)+'</span>';
+  b.onclick = fn;
+  return b;
+}
+function marcarMulti(P,i){
+  var sel = R[P.id] ? R[P.id].slice() : [], o = P.opts[i], pos = sel.indexOf(i);
+  if(pos > -1){ sel.splice(pos,1); }
+  else if(o.solo){ sel = [i]; }
+  else {
+    sel = sel.filter(function(x){ return !P.opts[x].solo; });
+    if(P.max && sel.length >= P.max) sel.shift();
+    sel.push(i);
+  }
+  R[P.id] = sel;
+  pintarPregunta();
+}
+function respondida(P){
+  var v = R[P.id];
+  return P.tipo === 'multiple' ? (!!v && v.length > 0) : (v !== undefined);
+}
+function siguiente(){
+  if(!respondida(PREGUNTAS[idx])) return;
+  if(idx < PREGUNTAS.length-1){ idx++; pintarPregunta(); window.scrollTo(0,0); }
+  else calcular();
+}
+function anterior(){
+  if(idx > 0){ idx--; pintarPregunta(); window.scrollTo(0,0); }
+  else { pintarPercepcion(); ir('v-perc'); }
+}
+
+/* ==========================================================
+   CÁLCULO
+   ========================================================== */
+function porId(id){ for(var i=0;i<PREGUNTAS.length;i++) if(PREGUNTAS[i].id===id) return PREGUNTAS[i]; return null; }
+
+/* Mediana de tres: el nivel más alto que sostienen al menos dos preguntas. */
+function mediana3(a){ var s = a.slice().sort(function(x,y){ return x-y; }); return s[1]; }
+
+function calcular(){
+  var dimsYo = [], dimsOrg = [];
+  ['p1','p2','p3'].forEach(function(id){
+    var P = porId(id), o = P.opts[R[id]];
+    dimsYo.push({id:id, dim:P.dim, pregunta:P.q, v:o.v, txt:o.t});
+  });
+  ['p4','p5','p6'].forEach(function(id){
+    var P = porId(id), o = P.opts[R[id]];
+    dimsOrg.push({id:id, dim:P.dim, pregunta:P.q, v:o.v, txt:o.t});
+  });
+
+  var medYo  = mediana3(dimsYo.map(function(d){ return d.v; }));
+  var medOrg = mediana3(dimsOrg.map(function(d){ return d.v; }));
+
+  // Regla del escalón 8: mediana 7 y la pregunta más exigente del bloque en su tope.
+  var nivelYo  = (medYo  === 7 && dimsYo[2].v  === 8) ? 8 : medYo;
+  var nivelOrg = (medOrg === 7 && dimsOrg[2].v === 8) ? 8 : medOrg;
+
+  var gapYo  = perc.yo  - nivelYo;
+  var gapOrg = perc.org - nivelOrg;
+  var lead   = nivelYo - nivelOrg;
+
+  var caso = lead >= 2 ? 'adelante'
+           : lead <= -2 ? 'detras'
+           : (nivelYo >= 6 && nivelOrg >= 6) ? 'referente'
+           : 'alineados';
+
+  var D = {nivelYo:nivelYo, nivelOrg:nivelOrg, medYo:medYo, medOrg:medOrg,
+           gapYo:gapYo, gapOrg:gapOrg, lead:lead, caso:caso,
+           dimsYo:dimsYo, dimsOrg:dimsOrg};
+
+  payload = construirExport(D);
+  informe(D);
+  guardado('guardando');
+  guardar(payload);
+}
+
+/* ==========================================================
+   EXPORTACIÓN
+   Todo lo que el informe ya no muestra en pantalla viaja aquí,
+   listo para la hoja de cálculo y para generar el PDF del correo.
+   ========================================================== */
+function textoMultiple(id){
+  var P = porId(id), sel = R[id] || [];
+  return sel.map(function(i){ return P.opts[i].t; });
+}
+
+function construirExport(D){
+  var Lyo = NIVELES[D.nivelYo-1], Lorg = NIVELES[D.nivelOrg-1];
+  var C = CASOS[D.caso];
+  var vYo = veredicto(D.gapYo, 'su práctica');
+  var vOrg = veredicto(D.gapOrg, 'la práctica de su empresa');
+  var ref = REFERENCIA[D.nivelYo-1];
+  var sig = D.nivelYo >= 8
+    ? {escalon:8, nombre:'Sostener el escalón más alto', capacidad:NIVELES[7].cap,
+       texto:'Está en el techo del marco. El reto deja de ser subir y pasa a ser mantener: auditar lo que ya opera, gestionar el riesgo a escala y renovar la apuesta antes de que la ventaja se erosione.'}
+    : {escalon:D.nivelYo+1, nombre:NIVELES[D.nivelYo].nombre, capacidad:NIVELES[D.nivelYo].cap,
+       texto:NIVELES[D.nivelYo-1].exige};
+
+  function bloque(dims, med, nivel){
+    var L = NIVELES[nivel-1];
+    return {
+      nivel:nivel, nombre:L.nombre, capacidad:L.cap, banda:BANDAS[L.banda].tag,
+      mediana:med, regla8_aplicada:(nivel > med),
+      dimensiones:dims.map(function(d){
+        return {id:d.id, dimension:d.dim, pregunta:d.pregunta, respuesta:d.txt, escalon:d.v};
+      })
+    };
+  }
+
+  var respuestasCrudas = {};
+  PREGUNTAS.forEach(function(P){ if(R[P.id] !== undefined) respuestasCrudas[P.id] = R[P.id]; });
+
+  // Objeto completo: lo que necesita el PDF sin volver a calcular nada.
+  var informeCompleto = {
+    version_instrumento:'2026.1',
+    perfil:{cargo:perfil.cargo, empresa:perfil.empresa, trabajadores:perfil.trabajadores,
+            industria:perfil.industria, email:perfil.email},
+    percepcion:{usted:perc.yo, usted_nombre:NIVELES[perc.yo-1].nombre,
+                organizacion:perc.org, organizacion_nombre:NIVELES[perc.org-1].nombre},
+    diagnostico:{usted:bloque(D.dimsYo, D.medYo, D.nivelYo),
+                 organizacion:bloque(D.dimsOrg, D.medOrg, D.nivelOrg)},
+    brechas:{percepcion_usted:D.gapYo, percepcion_organizacion:D.gapOrg,
+             leadership:D.lead, caso:D.caso, caso_titulo:C.h},
+    estadisticas:{plataformas:textoMultiple('p7'),
+                  inversion:(porId('p8').opts[R.p8] ? porId('p8').opts[R.p8].t : ''),
+                  preocupaciones:textoMultiple('p9')},
+    narrativa:{
+      veredicto_usted:vYo.t.replace(/<[^>]+>/g,''),
+      veredicto_organizacion:vOrg.t.replace(/<[^>]+>/g,''),
+      perfil_titulo:C.h,
+      perfil_parrafos:C.p.map(function(x){ return x.replace(/<[^>]+>/g,''); }),
+      referencia_texto:ref.d.replace(/<[^>]+>/g,''),
+      referencia_fuente:citar(ref.f),
+      siguiente_objetivo:sig
+    },
+    fuentes:FUENTES,
+    respuestas_crudas:respuestasCrudas
+  };
+
+  // Columnas planas y autosuficientes: una fila basta para armar el informe.
+  // El informe_json va aparte como copia sin pérdida.
+  var plats = textoMultiple('p7');
+  return {
+    token:CONFIG.TOKEN,
+    fecha:new Date().toISOString(),
+
+    // Contexto
+    cargo:perfil.cargo, empresa:perfil.empresa, trabajadores:perfil.trabajadores,
+    industria:perfil.industria, email:perfil.email,
+
+    // Autopercepción
+    percepcion_yo:perc.yo,  percepcion_yo_nombre:NIVELES[perc.yo-1].nombre,
+    percepcion_org:perc.org, percepcion_org_nombre:NIVELES[perc.org-1].nombre,
+
+    // Diagnóstico individual
+    nivel_yo:D.nivelYo, nivel_yo_nombre:Lyo.nombre, nivel_yo_capacidad:Lyo.cap,
+    nivel_yo_banda:BANDAS[Lyo.banda].tag, mediana_yo:D.medYo,
+    regla8_yo:(D.nivelYo > D.medYo ? 'SI' : 'NO'),
+
+    // Diagnóstico organizacional
+    nivel_org:D.nivelOrg, nivel_org_nombre:Lorg.nombre, nivel_org_capacidad:Lorg.cap,
+    nivel_org_banda:BANDAS[Lorg.banda].tag, mediana_org:D.medOrg,
+    regla8_org:(D.nivelOrg > D.medOrg ? 'SI' : 'NO'),
+
+    // Brechas
+    gap_percepcion_yo:D.gapYo, gap_percepcion_org:D.gapOrg,
+    leadership_gap:D.lead, caso:D.caso, caso_titulo:C.h,
+
+    // Dimensiones
+    p1:D.dimsYo[0].v, p2:D.dimsYo[1].v, p3:D.dimsYo[2].v,
+    p4:D.dimsOrg[0].v, p5:D.dimsOrg[1].v, p6:D.dimsOrg[2].v,
+    p1_texto:D.dimsYo[0].txt, p2_texto:D.dimsYo[1].txt, p3_texto:D.dimsYo[2].txt,
+    p4_texto:D.dimsOrg[0].txt, p5_texto:D.dimsOrg[1].txt, p6_texto:D.dimsOrg[2].txt,
+
+    // Estadísticas
+    plataformas:plats.join(' ; '), plataformas_n:plats.length,
+    inversion:informeCompleto.estadisticas.inversion,
+    preocupaciones:textoMultiple('p9').join(' ; '),
+
+    // Narrativa lista para redactar el informe
+    veredicto_yo:informeCompleto.narrativa.veredicto_usted,
+    veredicto_org:informeCompleto.narrativa.veredicto_organizacion,
+    perfil_parrafo_1:informeCompleto.narrativa.perfil_parrafos[0] || '',
+    perfil_parrafo_2:informeCompleto.narrativa.perfil_parrafos[1] || '',
+    referencia_texto:informeCompleto.narrativa.referencia_texto,
+    referencia_fuente:informeCompleto.narrativa.referencia_fuente,
+    siguiente_escalon:sig.escalon, siguiente_nombre:sig.nombre, siguiente_texto:sig.texto,
+
+    informe_json:JSON.stringify(informeCompleto)
+  };
+}
+
+/* ==========================================================
+   INFORME
+   ========================================================== */
+var CASOS = {
+  adelante:{
+    h:'Usted va por delante de su organización',
+    p:['No es un problema de capacidad suya: en la empresa todavía no hay estructura que sostenga lo que usted ya sabe hacer. Solo el <b>44% de las empresas</b> logra pasar de las pruebas a algo que funcione todo el tiempo, y las que lo consiguen no compraron mejor tecnología: le pusieron dueño y métrica a un proceso concreto.',
+        'El trabajo pendiente es convertir su criterio personal en una ruta que la organización pueda seguir sin necesitar que usted esté encima de cada paso.']},
+  detras:{
+    h:'Su organización va por delante de usted',
+    p:['Eso significa que <b>lo más difícil ya está hecho</b>: hay herramientas, equipo y presupuesto. Pasa seguido: el <b>86% de los CEOs</b> cree que su gente ya sabe usar IA, cuando solo la usa uno de cada cuatro trabajadores. Lo que falta de su lado no es volverse técnico, es tener el criterio para decidir qué se automatiza, qué se mide y dónde sigue decidiendo una persona.',
+        'Ese criterio rinde rápido en su caso, porque cada cosa que incorpore tiene dónde aplicarse desde el primer día.']},
+  alineados:{
+    h:'Usted y su organización están en el mismo tramo',
+    p:['No hay una brecha de liderazgo que cerrar, y eso simplifica el problema: lo que avance usted avanza la empresa, y al revés. El riesgo es distinto — cuando ambos están en el mismo punto, nadie tira del otro y el avance depende enteramente de una decisión deliberada.',
+        'Lo que decide el resultado no es cuánto se invierte, sino con qué criterio se elige el primer caso: uno acotado, con responsable y con métrica, en lugar de una lista de herramientas.']},
+  referente:{
+    h:'Usted y su organización están arriba, juntos',
+    p:['Es la posición menos común del estudio. La ventaja es real, y por eso el riesgo cambia de naturaleza: lo que funciona en este nivel suele <b>depender de pocas personas</b> y de decisiones que nadie dejó por escrito, y eso no aguanta un cambio de equipo.',
+        'Solo el <b>6% de las empresas</b> atribuye a la IA más del 5% de su EBIT, y ese grupo no ha crecido en dos años. Sostener la posición exige reglas claras de uso y de riesgo, y una cartera de casos ordenada por valor.']}
+};
+
+function veredicto(gap, quien){
+  if(gap >= 2) return {c:'v-over', t:'<strong>Se ubica '+gap+' escalones por encima de lo que muestra '+quien+'.</strong> Es el mismo patrón que se mide a escala global: <b>86% de los CEOs</b> cree que su gente ya sabe usar IA, cuando solo el <b>25%</b> la usa con regularidad. La distancia se cierra con ejecución, no con más estudio.'};
+  if(gap === 1) return {c:'v-over', t:'<strong>Se ubica un escalón por encima de lo que muestra '+quien+'.</strong> Es la brecha más común y la más fácil de cerrar: ya está el criterio, falta la evidencia de haberlo ejercido.'};
+  if(gap === 0) return {c:'v-align', t:'<strong>La percepción coincide con el diagnóstico.</strong> Una autolectura calibrada es en sí misma un activo: permite invertir donde hace falta en lugar de donde se cree que ya está resuelto.'};
+  return {c:'v-under', t:'<strong>Se subestima en '+Math.abs(gap)+' escalón'+(Math.abs(gap)>1?'es':'')+'.</strong> La práctica es más avanzada de lo que reconoce. Vale revisarlo: quienes subestiman su nivel tienden a delegar decisiones de IA que están perfectamente capacitados para tomar.'};
+}
+
+function informe(D){
+  var Lyo = NIVELES[D.nivelYo-1], Lorg = NIVELES[D.nivelOrg-1];
+  var C = CASOS[D.caso];
+  var quienOrg = perfil.empresa ? perfil.empresa : perfil.industria;
+
+  document.getElementById('r-hero').innerHTML =
+    '<span class="eyebrow">Su diagnóstico de conocimientos IA</span>'+
+    '<h2>'+C.h+'</h2>'+
+    '<p class="who">'+esc(perfil.industria)+' · '+esc(perfil.trabajadores)+' colaboradores</p>'+
+    '<div class="duo">'+
+      '<div class="duo-cell"><span class="eyebrow">Usted · '+esc(perfil.cargo)+'</span>'+
+        '<div class="duo-num">'+D.nivelYo+'</div><div class="duo-name">'+Lyo.nombre+'</div>'+
+        '<div class="duo-perc">Se ubicó en el '+perc.yo+'</div></div>'+
+      '<div class="duo-cell"><span class="eyebrow">Su organización · '+esc(quienOrg)+'</span>'+
+        '<div class="duo-num">'+D.nivelOrg+'</div><div class="duo-name">'+Lorg.nombre+'</div>'+
+        '<div class="duo-perc">La ubicó en el '+perc.org+'</div></div>'+
+    '</div>';
+
+  document.getElementById('r-body').innerHTML =
+    '<div id="save-slot"></div>'+
+
+    '<div class="closing">'+
+      '<h3>Gracias por participar</h3>'+
+      '<p>Sus respuestas forman parte del estudio de liderazgo ejecutivo en IA de Colectivo23. '+
+      (perfil.email
+        ? 'Le enviaremos a '+esc(perfil.email)+' su diagnóstico completo —con el detalle escalón por escalón— y, el '+CONFIG.FECHA_INFORME+', el informe que consolida las respuestas de todos los participantes.'
+        : 'Si quiere recibir su diagnóstico completo y el informe consolidado del '+CONFIG.FECHA_INFORME+', puede volver atrás y dejar su correo.')+'</p>'+
+    '</div>'+
+
+    '<div class="sources"><b>Referencias externas citadas</b>'+
+      FUENTES.mck+'<br>'+FUENTES.ibm+'<br>'+FUENTES.bcg+'<br>'+FUENTES.pwc+'<br>'+FUENTES.menlo+'<br>'+FUENTES.skill+
+      '<br><br>El Mapa de Capacidades e Impacto en IA es un marco propio de Colectivo23. Las cifras externas acompañan la lectura; no determinan el escalón.'+
+    '</div>';
+
+  ir('v-report');
+}
+
+/* ==========================================================
+   GUARDADO
+   ========================================================== */
+function guardado(estado){
+  var s = document.getElementById('save-slot');
+  if(!s) return;
+  if(estado === 'guardando') s.innerHTML = '<div class="savebar"><span class="spin"></span><div><strong>Registrando su respuesta</strong>Un momento.</div></div>';
+  else if(estado === 'ok')   s.innerHTML = '<div class="savebar" style="border-left:3px solid var(--azure)"><div><strong>Respuesta registrada</strong>'+(perfil.email ? 'Recibirá el informe consolidado el '+CONFIG.FECHA_INFORME+'.' : 'Gracias por participar en el estudio.')+'</div></div>';
+  else if(estado === 'ciego') s.innerHTML = '<div class="savebar" style="border-left:3px solid var(--azure)"><div><strong>Respuesta enviada</strong>Gracias por participar en el estudio.</div></div>';
+  else if(estado === 'off')  s.innerHTML = '';
+  else s.innerHTML = '<div class="savebar" style="border-left:3px solid var(--amber-dp)"><div><strong>No pudimos registrar su respuesta</strong>Su resultado sigue disponible en pantalla.</div><button class="retry" onclick="reintentar()">Reintentar</button></div>';
+}
+function guardar(p){
+  if(!CONFIG.APPS_SCRIPT_URL){
+    guardado('off');
+    // Sin URL configurada, el objeto queda disponible en consola para inspección.
+    if(window.console) console.log('[Assessment] Export listo:', p);
+    return;
+  }
+
+  if(CONFIG.METODO_ENVIO === 'GET'){
+    // Solo columnas planas: la URL no soporta el informe completo.
+    var q = [];
+    for(var k in p){
+      if(!p.hasOwnProperty(k) || k === 'informe_json') continue;
+      q.push(encodeURIComponent(k)+'='+encodeURIComponent(p[k]));
+    }
+    fetch(CONFIG.APPS_SCRIPT_URL+'?'+q.join('&'))
+      .then(function(r){ return r.json(); })
+      .then(function(j){ guardado(j && j.status === 'ok' ? 'ok' : 'error'); })
+      .catch(function(){ guardado('error'); });
+    return;
+  }
+
+  // POST recomendado: envía todo, incluido informe_json, sin límite de longitud.
+  // text/plain evita el preflight CORS; en Apps Script se lee con e.postData.contents.
+  var cuerpo = JSON.stringify(p);
+
+  // Si la red no responde, no dejamos la pantalla colgada en "Registrando".
+  var resuelto = false;
+  function cerrar(estado){ if(!resuelto){ resuelto = true; guardado(estado); } }
+  setTimeout(function(){ cerrar('error'); }, 15000);
+
+  fetch(CONFIG.APPS_SCRIPT_URL, {
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:cuerpo
+  })
+    .then(function(r){ return r.json(); })
+    .then(function(j){ cerrar(j && j.status === 'ok' ? 'ok' : 'error'); })
+    .catch(function(){
+      // Si el navegador no deja leer la respuesta, el envío igual pudo llegar.
+      // Reintentamos a ciegas con no-cors: la fila se escribe aunque no podamos confirmarlo.
+      fetch(CONFIG.APPS_SCRIPT_URL, {
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:cuerpo
+      })
+        .then(function(){ cerrar('ciego'); })
+        .catch(function(){ cerrar('error'); });
+    });
+}
+function reintentar(){ if(payload){ guardado('guardando'); guardar(payload); } }
+
+/* ==========================================================
+   ARRANQUE
+   ========================================================== */
+llenar('f-pos', POSICIONES, 'Seleccione su cargo');
+llenar('f-tam', TAMANOS, 'Seleccione un rango');
+llenar('f-ind', INDUSTRIAS, 'Seleccione su industria');
+pintarEscalera('ld-cover', 'bd-cover', null, false, 1);
+</script>
+</body>
+</html>

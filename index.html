@@ -79,14 +79,16 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:800;line-height:1.14;letter-s
 .ladder-wrap .eyebrow{color:var(--sky);display:block;margin-bottom:11px}
 .ladder-sub{font-size:.9rem;color:var(--fg-2);max-width:58ch;margin-bottom:26px}
 .scroller{overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch}
-.ladder{display:flex;align-items:flex-end;gap:7px;min-width:740px;padding-top:44px}
+/* Los pies de escalón salen del flujo: si contaran para la altura de la columna,
+   una leyenda de tres líneas empujaría su barra hacia arriba y se perdería la base común. */
+.ladder{display:flex;align-items:flex-end;gap:7px;min-width:740px;padding-top:44px;padding-bottom:64px}
 .rung{flex:1;display:flex;flex-direction:column;position:relative;background:none;border:none;padding:0;text-align:center;font-family:inherit;cursor:default}
 .rung.pick{cursor:pointer}
 .rung-name{font-family:var(--display);font-size:.73rem;font-weight:700;line-height:1.24;margin-bottom:7px;min-height:2.6em;display:flex;align-items:flex-end;justify-content:center;color:var(--sky);padding:0 2px}
 .rung-bar{border-radius:var(--r-s) var(--r-s) 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:9px;transition:filter .18s,box-shadow .18s}
 .rung.pick:hover .rung-bar{filter:brightness(1.3);box-shadow:0 0 0 2px var(--sky) inset}
 .rung-num{font-family:var(--mono);font-size:1.4rem;font-weight:600;color:rgba(255,255,255,.95)}
-.rung-cap{font-size:.66rem;line-height:1.36;color:var(--fg-3);padding:9px 3px 0;border-top:1px solid var(--rule-2)}
+.rung-cap{position:absolute;top:100%;left:0;right:0;font-size:.66rem;line-height:1.36;color:var(--fg-3);padding:9px 3px 0;border-top:1px solid var(--rule-2)}
 
 .marker{position:absolute;left:50%;transform:translateX(-50%);bottom:100%;width:max-content;max-width:150px;text-align:center;z-index:4;padding-bottom:2px}
 .marker.stack{bottom:calc(100% + 46px)}
@@ -204,7 +206,7 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:800;line-height:1.14;letter-s
 .ladders2{display:flex;flex-direction:column;gap:16px}
 .mini{background:linear-gradient(150deg,var(--void),var(--abyss) 55%,var(--navy));border-radius:var(--r-l);padding:22px 22px 16px;color:#fff}
 .mini .eyebrow{color:var(--sky);display:block;margin-bottom:14px}
-.mini .ladder{padding-top:64px;min-width:640px;gap:5px}
+.mini .ladder{padding-top:64px;padding-bottom:0;min-width:640px;gap:5px}
 .mini .rung-cap{display:none}
 .mini .rung-name{font-size:.66rem;min-height:2.3em;margin-bottom:5px}
 .mini .rung-num{font-size:1rem}
@@ -252,7 +254,9 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:800;line-height:1.14;letter-s
 
 .closing{text-align:center;padding:14px 0 0}
 .closing h3{font-size:1.05rem;margin-bottom:10px}
-.closing p{font-size:.92rem;color:var(--ink-2);max-width:54ch;margin:0 auto 20px}
+.closing p{font-size:.92rem;color:var(--ink-2);max-width:54ch;margin:0 auto 12px}
+.closing p:last-child{margin-bottom:0}
+.closing p b{color:var(--ink);font-weight:600}
 .blink{display:inline-block;background:linear-gradient(102deg,var(--azure),var(--bright));color:#fff;border-radius:99px;padding:13px 30px;font-size:.92rem;font-weight:600;text-decoration:none}
 .sources{font-family:var(--mono);font-size:.67rem;line-height:1.85;color:var(--ink-3);padding-top:20px;margin-top:24px;border-top:1px solid var(--line)}
 .sources b{display:block;color:var(--ink-2);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:.63rem;margin-bottom:9px}
@@ -425,7 +429,7 @@ var CONFIG = {
 
   // ---- Contenido ----
   LINK_PROGRAMA: 'https://www.colectivo23.com',
-  FECHA_INFORME: '30 de setiembre'
+  FECHA_INFORME: '30 de septiembre'
 };
 
 /* ==========================================================
@@ -1058,15 +1062,27 @@ function informe(D){
         '<div class="duo-perc">La ubicó en el '+perc.org+'</div></div>'+
     '</div>';
 
+  var vYo = veredicto(D.gapYo, 'su práctica');
+  var vOrg = veredicto(D.gapOrg, 'la práctica de su empresa');
+
   document.getElementById('r-body').innerHTML =
     '<div id="save-slot"></div>'+
 
+    '<div class="card">'+
+      '<span class="eyebrow">Gap de percepción</span>'+
+      '<h3>Usted</h3>'+
+      '<div class="verdict '+vYo.c+'">'+vYo.t+'</div>'+
+      '<h3 style="margin-top:22px">Su organización</h3>'+
+      '<div class="verdict '+vOrg.c+'">'+vOrg.t+'</div>'+
+    '</div>'+
+
     '<div class="closing">'+
       '<h3>Gracias por participar</h3>'+
-      '<p>Sus respuestas forman parte del estudio de liderazgo ejecutivo en IA de Colectivo23. '+
+      '<p>Sus respuestas forman parte del estudio de liderazgo ejecutivo en IA de Colectivo23.</p>'+
       (perfil.email
-        ? 'Le enviaremos a '+esc(perfil.email)+' su diagnóstico completo —con el detalle escalón por escalón— y, el '+CONFIG.FECHA_INFORME+', el informe que consolida las respuestas de todos los participantes.'
-        : 'Si quiere recibir su diagnóstico completo y el informe consolidado del '+CONFIG.FECHA_INFORME+', puede volver atrás y dejar su correo.')+'</p>'+
+        ? '<p>Le enviaremos su diagnóstico personal completo a <b>'+esc(perfil.email)+'</b>.</p>'+
+          '<p>El '+CONFIG.FECHA_INFORME+' recibirá también por correo los resultados generales del estudio.</p>'
+        : '<p>Si quiere recibir su diagnóstico personal completo y, el '+CONFIG.FECHA_INFORME+', los resultados generales del estudio, puede volver atrás y dejar su correo.</p>')+
     '</div>'+
 
     '<div class="sources"><b>Referencias externas citadas</b>'+

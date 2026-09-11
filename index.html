@@ -66,7 +66,8 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:800;line-height:1.14;letter-s
 .cover{max-width:1140px;margin:0 auto;width:100%;padding:88px 26px 40px}
 .cover h1{font-size:clamp(2.1rem,5.2vw,3.5rem);max-width:19ch;margin-bottom:20px}
 .cover h1 em{font-style:normal;color:var(--amber)}
-.cover-lede{font-size:1.04rem;color:var(--fg-2);max-width:56ch;margin-bottom:26px}
+.cover-lede{font-size:1.04rem;color:var(--fg-2);max-width:56ch;margin-bottom:14px}
+.cover-src{font-family:var(--mono);font-size:.68rem;color:var(--fg-3);letter-spacing:.02em;padding-left:11px;border-left:2px solid var(--rule);margin-bottom:26px}
 .facts{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:32px}
 .fact{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;color:var(--fg-2);border:1px solid var(--rule);border-radius:99px;padding:6px 14px;background:var(--panel)}
 .callout{display:flex;gap:12px;border-left:2px solid var(--amber);padding:3px 0 3px 14px;margin-top:34px;max-width:60ch}
@@ -158,6 +159,9 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:800;line-height:1.14;letter-s
 .slot .sn{display:block;font-family:var(--display);font-size:.85rem;font-weight:700;margin-top:4px;color:var(--fg-2)}
 .slot.set .sv{color:#fff}.slot.set .sn{color:#fff}
 .slot .sh{display:block;font-size:.76rem;color:var(--fg-3);margin-top:5px}
+.ladder-hint{display:flex;align-items:center;gap:9px;font-size:.88rem;font-weight:500;color:var(--sky);margin:0 0 14px}
+.ladder-hint::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--sky);flex-shrink:0;animation:latir 1.8s ease-in-out infinite}
+@keyframes latir{0%,100%{opacity:1}50%{opacity:.35}}
 
 /* --- Formulario --- */
 .field{margin-bottom:17px}
@@ -177,6 +181,7 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:800;line-height:1.14;letter-s
 @media(max-width:560px){.g2{grid-template-columns:1fr}}
 
 .navrow{display:flex;gap:12px;justify-content:space-between;margin-top:22px}
+.privacidad{margin:26px auto 0;max-width:58ch;font-size:.76rem;line-height:1.55;color:var(--fg-3);text-align:center}
 @media(max-width:600px){.navrow{flex-direction:column-reverse}.navrow .btn{width:100%}}
 
 /* ===================== INFORME ===================== */
@@ -284,8 +289,9 @@ footer .eyebrow{color:var(--fg-3)}
   <div class="cover">
     <h1>Casi 9 de cada 10 empresas ya usa IA. <em>Solo el 6% la ve en sus resultados.</em></h1>
     <p class="cover-lede">Este assessment ubica dos cosas por separado en una misma escalera de ocho niveles: dónde está usted con la IA y dónde está su organización. Contrasta además lo que usted cree con lo que revela su práctica.</p>
+    <p class="cover-src">McKinsey · The State of AI, 2026 — 1.719 ejecutivos en 97 países</p>
     <div class="facts">
-      <span class="fact">9 preguntas</span>
+      <span class="fact">10 preguntas</span>
       <span class="fact">7 minutos</span>
       <span class="fact">Resultado inmediato</span>
     </div>
@@ -321,10 +327,12 @@ footer .eyebrow{color:var(--fg-3)}
     <div class="panel">
       <span class="eyebrow">Sus datos</span>
       <h2>Antes de empezar</h2>
-      <p class="panel-note">Estos campos permiten producir los cortes del estudio: por cargo, tamaño de empresa e industria. Ninguna respuesta individual se publica.</p>
+      <p class="panel-note">Estos campos permiten producir los cortes del estudio: por cargo, país, tamaño de empresa e industria.</p>
 
       <div class="field"><label for="f-pos">Cargo <span class="req">*</span></label>
         <select id="f-pos"></select><div class="err" id="e-pos">Seleccione su cargo.</div></div>
+      <div class="field"><label for="f-pais">País <span class="req">*</span></label>
+        <select id="f-pais"></select><div class="err" id="e-pais">Seleccione su país.</div></div>
       <div class="field"><label for="f-tam">Tamaño de la empresa <span class="req">*</span></label>
         <select id="f-tam"></select><div class="err" id="e-tam">Seleccione un rango.</div></div>
       <div class="field"><label for="f-ind">Industria <span class="req">*</span></label>
@@ -342,6 +350,7 @@ footer .eyebrow{color:var(--fg-3)}
         <button class="btn" onclick="enviarForm()">Continuar →</button>
       </div>
     </div>
+      <p class="privacidad">Sus respuestas son confidenciales. Los resultados se publicarán únicamente de forma agregada, por sector y tamaño de empresa. En ninguna publicación será identificable usted ni su organización.</p>
   </div>
   <footer><span class="eyebrow">Colectivo23</span></footer>
  </div>
@@ -365,6 +374,8 @@ footer .eyebrow{color:var(--fg-3)}
         <button class="slot" id="slot-org" onclick="activarSlot(1)"></button>
       </div>
 
+      <p class="ladder-hint" id="perc-hint"></p>
+
       <div class="scroller">
         <div class="ladder" id="ld-perc"></div>
       </div>
@@ -375,6 +386,7 @@ footer .eyebrow{color:var(--fg-3)}
       <button class="btn back" onclick="ir('v-form')">← Atrás</button>
       <button class="btn" id="perc-next" onclick="salirPercepcion()" disabled>Continuar →</button>
     </div>
+      <p class="privacidad">Sus respuestas son confidenciales. Los resultados se publicarán únicamente de forma agregada, por sector y tamaño de empresa. En ninguna publicación será identificable usted ni su organización.</p>
   </div>
   <footer><span class="eyebrow">Colectivo23</span></footer>
  </div>
@@ -400,6 +412,7 @@ footer .eyebrow{color:var(--fg-3)}
       <button class="btn back" id="b-back" onclick="anterior()">← Atrás</button>
       <button class="btn" id="b-next" onclick="siguiente()" disabled>Siguiente →</button>
     </div>
+      <p class="privacidad">Sus respuestas son confidenciales. Los resultados se publicarán únicamente de forma agregada, por sector y tamaño de empresa. En ninguna publicación será identificable usted ni su organización.</p>
   </div>
   <footer><span class="eyebrow">Colectivo23</span></footer>
  </div>
@@ -485,9 +498,10 @@ function citar(k){ return k.split('|').map(function(x){return FUENTES[x];}).join
 /* ==========================================================
    CATÁLOGOS
    ========================================================== */
-var POSICIONES = ['CEO / Gerente General','Presidente del directorio','Miembro del directorio','COO / Gerente de Operaciones','CFO / Gerente de Finanzas','CTO / CIO / Gerente de Tecnología','CDO / Gerente de Datos o Digital','CHRO / Gerente de Personas','CMO / Gerente Comercial o de Marketing','Gerente General de unidad de negocio','Director o VP de área','Otro cargo ejecutivo'];
+var POSICIONES = ['CDO / Gerente de Datos o Digital','CEO / Gerente General','CFO / Gerente de Finanzas','CHRO / Gerente de Personas','CMO / Gerente Comercial o de Marketing','COO / Gerente de Operaciones','CTO / CIO / Gerente de Tecnología','Director o VP de área','Gerente General de unidad de negocio','Miembro del directorio','Presidente del directorio','Otro cargo ejecutivo'];
+var PAISES = ['Argentina','Bolivia','Brasil','Chile','Colombia','Costa Rica','Ecuador','El Salvador','España','Estados Unidos','Guatemala','Honduras','México','Nicaragua','Panamá','Paraguay','Perú','República Dominicana','Uruguay','Otro'];
 var TAMANOS = ['Menos de 50','50 a 250','251 a 500','501 a 1,000','1,001 a 5,000','Más de 5,000'];
-var INDUSTRIAS = ['Banca y servicios financieros','Seguros','Retail y consumo masivo','Minería y energía','Manufactura e industria','Telecomunicaciones y tecnología','Salud y farmacéutica','Educación','Construcción e inmobiliaria','Transporte y logística','Agroindustria','Servicios profesionales y consultoría','Sector público','Otra'];
+var INDUSTRIAS = ['Agroindustria','Banca y servicios financieros','Construcción e inmobiliaria','Educación','Manufactura e industria','Minería y energía','Retail y consumo masivo','Salud y farmacéutica','Sector público','Seguros','Servicios profesionales y consultoría','Telecomunicaciones y tecnología','Transporte y logística','Otra'];
 
 /* ==========================================================
    PREGUNTAS
@@ -593,7 +607,19 @@ var PREGUNTAS = [
    {t:'Falta de talento'},{t:'Resistencia organizacional al cambio'},
    {t:'Dependencia de proveedores'},{t:'Que el liderazgo no esté adoptando IA con suficiente rapidez'}
   ],
-  dato:'<b>72% de los CEOs</b> ya es el principal decisor de IA de su organización, casi el doble que hace un año.',fuente:'bcg'}
+  dato:'<b>72% de los CEOs</b> ya es el principal decisor de IA de su organización, casi el doble que hace un año.',fuente:'bcg'},
+
+ {id:'p10',bloque:'Estadísticas',paso:5,tipo:'unica',
+  q:'Pensando en 2027, ¿cuál cree que será el costo más alto de las soluciones de IA que se están construyendo hoy con prisa?',
+  help:'La última pregunta.',
+  opts:[
+   {t:'Ninguno relevante.'},
+   {t:'Sistemas que nadie sabe mantener ni explicar.'},
+   {t:'Equipos con habilidades desalineadas de lo que el negocio necesitará.'},
+   {t:'Decisiones automatizadas sin trazabilidad ni responsable.'},
+   {t:'Estructuras y organigramas que quedarán obsoletos.'}
+  ],
+  dato:'<b>78% de los ejecutivos</b> dice que la IA avanza más rápido de lo que su organización alcanza a capacitar, y solo el <b>25% de los trabajadores</b> la usa con regularidad.',fuente:'skill|mck'}
 ];
 
 /* Referencia externa según el escalón individual alcanzado */
@@ -690,6 +716,7 @@ function esc(s){
 function enviarForm(){
   var campos = [
     ['f-pos','e-pos',function(v){ return !!v; }],
+    ['f-pais','e-pais',function(v){ return !!v; }],
     ['f-tam','e-tam',function(v){ return !!v; }],
     ['f-ind','e-ind',function(v){ return !!v; }],
     // El correo es opcional: solo se valida el formato si escribieron algo.
@@ -705,6 +732,7 @@ function enviarForm(){
 
   perfil = {
     cargo:document.getElementById('f-pos').value,
+    pais:document.getElementById('f-pais').value,
     trabajadores:document.getElementById('f-tam').value,
     industria:document.getElementById('f-ind').value,
     empresa:document.getElementById('f-emp').value.trim(),
@@ -749,6 +777,11 @@ function pintarPercepcion(){
 
   var listo = (perc.yo !== null && perc.org !== null);
   document.getElementById('perc-next').disabled = !listo;
+
+  // El aviso sigue a la tarjeta activa: siempre dice qué se está ubicando ahora.
+  document.getElementById('perc-hint').textContent = perc.slot === 0
+    ? 'Haga clic en el escalón donde considera que se ubica usted'
+    : 'Haga clic en el escalón donde considera que se ubica su organización';
 
   document.getElementById('perc-dato').innerHTML =
     '<div class="dato"><span class="dl">El dato</span>'+
@@ -938,7 +971,7 @@ function construirExport(D){
   // Objeto completo: lo que necesita el PDF sin volver a calcular nada.
   var informeCompleto = {
     version_instrumento:'2026.1',
-    perfil:{cargo:perfil.cargo, empresa:perfil.empresa, trabajadores:perfil.trabajadores,
+    perfil:{cargo:perfil.cargo, pais:perfil.pais, empresa:perfil.empresa, trabajadores:perfil.trabajadores,
             industria:perfil.industria, email:perfil.email},
     percepcion:{usted:perc.yo, usted_nombre:NIVELES[perc.yo-1].nombre,
                 organizacion:perc.org, organizacion_nombre:NIVELES[perc.org-1].nombre},
@@ -948,7 +981,8 @@ function construirExport(D){
              leadership:D.lead, caso:D.caso, caso_titulo:C.h},
     estadisticas:{plataformas:textoMultiple('p7'),
                   inversion:(porId('p8').opts[R.p8] ? porId('p8').opts[R.p8].t : ''),
-                  preocupaciones:textoMultiple('p9')},
+                  preocupaciones:textoMultiple('p9'),
+                  costo_2027:(porId('p10').opts[R.p10] ? porId('p10').opts[R.p10].t : '')},
     narrativa:{
       veredicto_usted:vYo.t.replace(/<[^>]+>/g,''),
       veredicto_organizacion:vOrg.t.replace(/<[^>]+>/g,''),
@@ -970,8 +1004,8 @@ function construirExport(D){
     fecha:new Date().toISOString(),
 
     // Contexto
-    cargo:perfil.cargo, empresa:perfil.empresa, trabajadores:perfil.trabajadores,
-    industria:perfil.industria, email:perfil.email,
+    cargo:perfil.cargo, pais:perfil.pais, empresa:perfil.empresa,
+    trabajadores:perfil.trabajadores, industria:perfil.industria, email:perfil.email,
 
     // Autopercepción
     percepcion_yo:perc.yo,  percepcion_yo_nombre:NIVELES[perc.yo-1].nombre,
@@ -1001,6 +1035,7 @@ function construirExport(D){
     plataformas:plats.join(' ; '), plataformas_n:plats.length,
     inversion:informeCompleto.estadisticas.inversion,
     preocupaciones:textoMultiple('p9').join(' ; '),
+    costo_2027:(porId('p10').opts[R.p10] ? porId('p10').opts[R.p10].t : ''),
 
     // Narrativa lista para redactar el informe
     veredicto_yo:informeCompleto.narrativa.veredicto_usted,
@@ -1161,6 +1196,7 @@ function reintentar(){ if(payload){ guardado('guardando'); guardar(payload); } }
    ARRANQUE
    ========================================================== */
 llenar('f-pos', POSICIONES, 'Seleccione su cargo');
+llenar('f-pais', PAISES, 'Seleccione su país');
 llenar('f-tam', TAMANOS, 'Seleccione un rango');
 llenar('f-ind', INDUSTRIAS, 'Seleccione su industria');
 pintarEscalera('ld-cover', 'bd-cover', null, false, 1);
